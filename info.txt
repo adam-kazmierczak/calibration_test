@@ -1,0 +1,40 @@
+I OKNO 
+
+roscore
+
+
+II OKNO
+
+catkin_make
+source devel/setup.bash
+ rosrun usb_cam usb_cam_node
+
+
+II OKNO
+
+catkin_make
+source devel/setup.bash
+rosrun calibration_test calibration_test_node
+
+
+Strona z matalabem do kalibracji kamery:
+http://www-personal.acfr.usyd.edu.au/akas9185/AutoCalib/AutoCamDoc/index.html
+
+
+Plik z kalibracją z opencv:
+http://programmingexamples.net/wiki/OpenCV/CheckerboardCalibration
+
+
+Programy:
+ROS
+urg_node - apt install
+cam_node - z git
+rviz -apt install
+cv_bridge
+
+PROBLEMS:
+calibration_test_node.cpp - IMPORTANT! srcPath=........
+CamCalibConfig.xml - SETTINGS!!!  
+
+
+

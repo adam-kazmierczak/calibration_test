@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+  <!-- Sensor configuration -->
+  <Config>
+    <!-- number of frames in a dataset -->
+    <dataset
+            dataset_size = "61"
+            frames_directory = "../data/"
+            frames_base_name = "RGB"
+            frames_picture_format =".png"
+            laser_directory = "../data/laser.txt"
+            laser_elements_skip = "3"
+    />
+    <chessboard
+        rows = "6"
+        cols = "9"
+        raster = "50"
+        height = "400"
+        width = "600"
+    />
+    <!-- file containing camera matrix and distortion coefficients -->
+    <!-- TODO: check if file is given and exsists, othervise recalibrate and create-->
+    <calibrated_camera_file>../camera.xml</calibrated_camera_file>
+  </Config>
