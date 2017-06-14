@@ -27,14 +27,17 @@ using namespace std_msgs;
 
 
 //----------IMPORTANT!!!!---------------------
+std::string src="./src/calibration_test";
+std::string srcPath = src+"/testing_data";
+std::string savedPath =src+"/data";
 
-std::string srcPath = "./src/calibration_test";
-
-std::string  srcPathlaser= srcPath+"/testing_data/laser.txt";
-std::string namePic ="/data/RGB";//name of pictures
-std::string nameLas ="/data/laser";//name of laser data
-std::string las =srcPath+ nameLas + ".txt";//ścieżka pliku tekstowego
- const char *savelaserPath = las.c_str();
+std::string  srcPathlaser= srcPath+"/laser.txt";
+std::string  savedPathlaser= savedPath+"/laser.txt";
+std::string namePic ="/RGB";//name of pictures
+std::string srcPathpictures = srcPath+"/RGB";
+std::string savedPathpictures = savedPath+"/RGB";
+std::string picturesType = ".png";
+ const char *savelaserPath = savedPathlaser.c_str();
 
 
 int samplenum= 30;//numbers of samples
@@ -44,8 +47,7 @@ int samplenum= 30;//numbers of samples
 
 //----------ZMIENNE UŻYWANE W FUNCKJACH---------------------------
 std::vector<std::vector<double > > laserdata;//ODCZYTANE DANE Z PLIKU TXT
-std::string picturesPath = srcPath+"/data";
-std::string laserPath = srcPath+"/data/laser.txt";
+
 
 int a;//how many chess are from left to right
 int b;//how many chess are from down to up
@@ -53,10 +55,7 @@ int b;//how many chess are from down to up
     cv::Mat szarak;
     cv::Mat obraz;
 
-
- std::string st1 = picturesPath+"/RGB";
- std::string ext = ".png";
- std::string filename;
+ std::string PathOfTestPictures;
 
 
 
@@ -75,23 +74,23 @@ void testing(const sensor_msgs::ImageConstPtr& image1)
 
         std::stringstream ss;
         ss << probka;
-        filename = st1 + ss.str() + ext;
-         std::cout << filename << "\n";
+        PathOfTestPictures = srcPathpictures + ss.str() + picturesType;
+         std::cout << PathOfTestPictures << "\n";
 
-      obraz = cv::imread(filename,1 );//TESTOWY OBRAZ
+      obraz = cv::imread(PathOfTestPictures,1 );//TESTOWY OBRAZ
 
          cv::imshow("view", obraz);//pokaz obrazu
             cv::waitKey(20);
 
 
           std::string sample = boost::lexical_cast<std::string>(probka);
-         cv::imwrite(srcPath + namePic + sample + ".png", obraz);//zapis obrazu
+         cv::imwrite(savedPathpictures + namePic + sample + picturesType, obraz);//zapis obrazu
 
             int tabliczka = laserdata.at(probka).size();
 
 
             std::fstream file;
-            file.open(savelaserPath, std::fstream::in | std::fstream::out | std::fstream::app/*std::ios::out|std::ios::ate*/  );
+            file.open(savedPathlaser, std::fstream::in | std::fstream::out | std::fstream::app/*std::ios::out|std::ios::ate*/  );
             if( file.is_open() == true)
             {
                     ROS_INFO("\n number of taken picture %d ", probka);
@@ -115,7 +114,7 @@ void testing(const sensor_msgs::ImageConstPtr& image1)
             //chess();
 
         cv::waitKey(0);
-        calculateTransformation(srcPath);
+        calculateTransformation(src);
         //system("./chess");
         ros::shutdown();
 
@@ -162,8 +161,7 @@ ROS_INFO("STARTING PROGRAM %d",1);
 
         std::ifstream infile(srcPathlaser); // relative directory depends on the build path
 
-        cv::Mat tempM = cv::Mat::zeros(100,100,CV_32FC1);
-            cv::imwrite("kicia.jpg", tempM);
+
 
         std::cout << argv[0] << std::endl ;
 
