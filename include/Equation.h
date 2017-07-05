@@ -179,8 +179,14 @@ struct Equation {
 //        cout << V1.cross(V2) << endl;
 
         Eigen::MatrixXd T(3,1);
+ 	Eigen::MatrixXd Tr(2,1);
         Eigen::Matrix<double, 3, 3> R;
         T = ((-1.0) * L.transpose()) * H.col(2);
+	Tr(0,0)=T(1,0);
+	Tr(1,0)=T(0,0);
+	
+	T(0,0)=Tr(0,0);
+	T(1,0)=Tr(1,0);
         cout << " Translate is: " << endl<< T << endl;
         //Rotation
         R = L.transpose();

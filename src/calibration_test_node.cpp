@@ -28,7 +28,7 @@ using namespace std_msgs;
 
 //----------IMPORTANT!!!!---------------------
 std::string src="./src/calibration_test";
-std::string srcPath = src+"/testing_data";
+std::string srcPath = src+"/testing_data2";
 std::string savedPath =src+"/data";
 
 std::string  srcPathlaser= srcPath+"/laser.txt";
@@ -110,12 +110,10 @@ void testing(const sensor_msgs::ImageConstPtr& image1)
         }
         else
         {
-            //TUTAJ FUNKACJA KALIBRACJI
-            //chess();
-
-        cv::waitKey(0);
+            
+        cv::waitKey(40);
         calculateTransformation(src);
-        //system("./chess");
+      
         ros::shutdown();
 
 
